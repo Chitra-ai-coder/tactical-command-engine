@@ -674,6 +674,7 @@
       z-index: 10;
       border: 2px solid rgba(255,255,255,0.9);
       box-shadow: 0 4px 10px rgba(0,0,0,0.6), inset 0 -4px 6px rgba(0,0,0,0.2);
+      touch-action: none;
     }
     
     .player:hover {
@@ -1052,17 +1053,32 @@
       highlightSelectedPlayerInTable(selectedPlayerId);
     }
 
+    // --- UNIFIED MOUSE & TOUCH DRAG LOGIC ---
+    
     function makePlayersDraggable() {
       document.querySelectorAll(".player").forEach(div => {
-        div.onmousedown = e => {
+        
+        // Helper to get coordinates
+        const startDrag = (clientX, clientY) => {
           draggingPlayerDiv = div;
           draggingPlayerDiv.classList.add("dragging");
           const rect = draggingPlayerDiv.getBoundingClientRect();
-          dragOffsetX = e.clientX - rect.left;
-          dragOffsetY = e.clientY - rect.top;
+          dragOffsetX = clientX - rect.left;
+          dragOffsetY = clientY - rect.top;
+        };
+
+        // 1. Desktop: Mouse Click
+        div.onmousedown = e => {
+          startDrag(e.clientX, e.clientY);
           e.preventDefault();
         };
 
+        // 2. Mobile: Finger Touch
+        div.addEventListener('touchstart', e => {
+          startDrag(e.touches[0].clientX, e.touches[0].clientY);
+        }, { passive: true });
+
+        // 3. Selection Tap/Click
         div.onclick = e => {
           e.stopPropagation();
           selectPlayerById(div.dataset.id);
@@ -1070,13 +1086,15 @@
       });
     }
 
-    document.addEventListener("mousemove", e => {
+    // Helper to calculate boundaries and update path
+    const handleMove = (clientX, clientY) => {
       if (!draggingPlayerDiv) return;
 
       const fieldRect = field.getBoundingClientRect();
-      let newX = e.clientX - fieldRect.left - dragOffsetX + 18; 
-      let newY = e.clientY - fieldRect.top - dragOffsetY + 18;
+      let newX = clientX - fieldRect.left - dragOffsetX + 18; 
+      let newY = clientY - fieldRect.top - dragOffsetY + 18;
 
+      // Boundaries to keep players on the pitch
       newX = Math.min(Math.max(newX, 18), field.clientWidth - 18);
       newY = Math.min(Math.max(newY, 18), field.clientHeight - 18);
 
@@ -1090,20 +1108,39 @@
         player.y = newY;
       }
 
+      // Live path recalculation
       if (lastPath) {
         const activePlayer = allPlayers.find(p => p.id === selectedPlayerId);
         if (draggingPlayerDiv.classList.contains("selected") || !draggingPlayerDiv.classList.contains(activePlayer?.teamClass)) {
              findPathLogic(); 
         }
       }
+    };
+
+    // 4. Desktop: Mouse Move
+    document.addEventListener("mousemove", e => {
+      handleMove(e.clientX, e.clientY);
     });
 
-    document.addEventListener("mouseup", e => {
+    // 5. Mobile: Finger Move
+    document.addEventListener("touchmove", e => {
+      if (draggingPlayerDiv) {
+        handleMove(e.touches[0].clientX, e.touches[0].clientY);
+        e.preventDefault(); // Prevents the screen from scrolling while dragging
+      }
+    }, { passive: false });
+
+    // 6. Stop Dragging (Both platforms)
+    const endDrag = () => {
       if (draggingPlayerDiv) {
         draggingPlayerDiv.classList.remove("dragging");
         draggingPlayerDiv = null;
       }
-    });
+    };
+
+    document.addEventListener("mouseup", endDrag);
+    document.addEventListener("touchend", endDrag);
+    document.addEventListener("touchcancel", endDrag);
 
     function clearCanvas() {
       ctx.clearRect(0, 0, lineCanvas.width, lineCanvas.height);
