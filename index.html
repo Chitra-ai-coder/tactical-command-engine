@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pro Tactical Analytics | Gradient Glass Edition</title>
+  <style>
+   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&display=swap');
+    :root {
+      /* Advanced Gradient Theme Colors */
+      --bg-grad-1: #022c22; /* Deep Dark Green */
+      --bg-grad-2: #02380b; /* Emerald */
+      --bg-grad-3: #0f172a; /* Deep Slate Blue */
+      
+      /* Glassmorphism Variables */
+      --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 100%);
+      --glass-border: rgba(255, 255, 255, 0.15);
+      --glass-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+      --glass-blur: blur(16px);
+
+      /* Team Colors (Flat + Gradients) */
+      --team-home: #3b82f6; 
+      --team-home-grad: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+      --team-away: #ef4444; 
+      --team-away-grad: linear-gradient(135deg, #f87171 0%, #dc2626 100%);
+      
+      /* Pitch Colors */
+      --pitch-dark: #2d6a22;
+      --pitch-light: #347a27;
+      
+      /* Typography */
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    body {
+      font-family: 'Playfair Display', serif !important;
+      margin: 0; 
+      padding: 0;
+      min-height: 100vh;
+      color: var(--text-main);
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* Background colors and matrix remain identical */
+      background: 
+        radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 50%, var(--bg-grad-3) 100%);
+      background-size: 20px 20px, 100% 100%;
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
+
+    /* Force Ultra onto all elements without changing their colors or sizes */
+    h1, h2, h3, p, button, select, .player, .player-list td, footer, .brand span, .system-badge {
+      font-family: 'Playfair Display', serif !important;
+    }
+
+    /* --- GLASSMORPHISM UTILITY CLASS --- */
+    .glass-panel {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      box-shadow: var(--glass-shadow);
+    }
+
+   /* =====================================================================
+       ENHANCED CINEMATIC LANDING PAGE GRAPHICS
+       ===================================================================== */
+    #landing-page {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      /* Deep Emerald Depth */
+      background: radial-gradient(circle at 50% 40%, #065f46 0%, #022c22 100%);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+      overflow: hidden;
+      perspective: 1200px;
+    }
+
+    /* Refined 3D Tactical Pitch Grid */
+    .landing-bg-graphic {
+      position: absolute;
+      bottom: -10%;
+      width: 180vw;
+      height: 120vh;
+      background: 
+        /* Subtle Center Circle */
+        radial-gradient(circle at center, transparent 24%, rgba(255,255,255,0.02) 24.1%, rgba(255,255,255,0.02) 24.5%, transparent 24.6%),
+        /* Sharp Tactical Grid */
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 100% 100%, 80px 80px, 80px 80px;
+      transform: rotateX(65deg) translateY(100px);
+      transform-origin: center bottom;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.8;
+      /* Seamless edge fading */
+      mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+    }
+
+    /* Structured Tactical Nodes */
+    .landing-nodes {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .l-node {
+      position: absolute;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 20px rgba(255,255,255,0.5), 0 0 0 4px rgba(255,255,255,0.1);
+      animation: floatNode 6s ease-in-out infinite alternate;
+    }
+
+    .l-node.blue { 
+      background: #3b82f6; 
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.6), 0 0 0 6px rgba(59, 130, 246, 0.1); 
+      animation-delay: -1s;
+    }
+    
+    .l-node.red { 
+      background: #ef4444; 
+      box-shadow: 0 0 30px rgba(239, 68, 68, 0.6), 0 0 0 6px rgba(239, 68, 68, 0.1); 
+      animation-delay: -3.5s;
+    }
+
+    @keyframes floatNode {
+      0% { transform: translateY(0) scale(1); opacity: 0.8; }
+      100% { transform: translateY(-30px) scale(1.15); opacity: 1; }
+    }
+
+    /* Structured "Data-Stream" Lines */
+    .l-line {
+      position: absolute;
+      height: 1px; /* Thinner for a more professional look */
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255,255,255,0.4) 50%, 
+        transparent 100%
+      );
+      background-size: 200% 100%;
+      animation: lineFlow 4s linear infinite;
+      z-index: 1;
+      transform-origin: left center;
+    }
+
+    /* Dotted overlay for the structured tactical feel */
+    .l-line::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px);
+      background-size: 15px 1px;
+    }
+
+    @keyframes lineFlow {
+      0% { background-position: 100% 0; opacity: 0.2; }
+      50% { opacity: 0.6; }
+      100% { background-position: -100% 0; opacity: 0.2; }
+    }
+
+    /* Geometric Positioning for Balance */
+    .ln-1 { top: 20%; left: 15%; }
+    .ln-2 { top: 75%; left: 20%; }
+    .ln-3 { top: 25%; left: 85%; }
+    .ln-4 { top: 80%; left: 80%; }
+    .ln-5 { top: 50%; left: 50%; transform: translate(-50%, -50%); width: 18px; height: 18px; }
+
+    /* Angle-Calculated Lines for Symmetry */
+    .ll-1 { top: 20%; left: 15%; width: 30vw; transform: rotate(12deg); }
+    .ll-2 { top: 75%; left: 20%; width: 25vw; transform: rotate(-18deg); }
+    .ll-3 { top: 25%; left: 85%; width: 30vw; transform: rotate(165deg); }
+    .ll-4 { top: 80%; left: 80%; width: 25vw; transform: rotate(195deg); }
+
+    /* Main Landing Content Container */
+    /* =====================================================================
+       CINEMATIC & IMMERSIVE LANDING PAGE
+       ===================================================================== */
+    #landing-page {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: radial-gradient(circle at 50% 30%, #0a4a28 0%, #011812 100%);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+      overflow: hidden;
+      perspective: 1000px;
+    }
+
+    /* Animated 3D Tactical Grid */
+    .landing-grid {
+      position: absolute;
+      bottom: -30%; left: -50%;
+      width: 200%; height: 150%;
+      background-image: 
+        linear-gradient(rgba(16, 185, 129, 0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 185, 129, 0.15) 1px, transparent 1px);
+      background-size: 60px 60px;
+      transform: rotateX(70deg);
+      transform-origin: center center;
+      animation: moveGrid 15s linear infinite;
+      z-index: 1;
+      pointer-events: none;
+      /* Fades out the grid at the edges */
+      mask-image: radial-gradient(circle at center, black 20%, transparent 70%);
+      -webkit-mask-image: radial-gradient(circle at center, black 20%, transparent 70%);
+    }
+
+    @keyframes moveGrid {
+      0% { transform: rotateX(70deg) translateY(0); }
+      100% { transform: rotateX(70deg) translateY(60px); }
+    }
+
+    /* Ambient Light Rays */
+    .light-ray {
+      position: absolute;
+      top: -50%; left: 50%;
+      width: 150vw; height: 100vh;
+      background: conic-gradient(from 180deg at 50% -20%, rgba(16, 185, 129, 0.15) 0deg, transparent 40deg, transparent 320deg, rgba(16, 185, 129, 0.15) 360deg);
+      transform: translateX(-50%);
+      z-index: 1;
+      pointer-events: none;
+      animation: pulseRay 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseRay {
+      0% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+
+    /* Floating Tactical Nodes (Strictly Red & Blue) */
+    .tac-node {
+      position: absolute;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      z-index: 2;
+      animation: floatNode 5s ease-in-out infinite alternate;
+    }
+    
+    .tac-node.blue { 
+      background: #3b82f6; 
+      box-shadow: 0 0 20px 10px rgba(59, 130, 246, 0.3), 0 0 0 6px rgba(255,255,255,0.1); 
+      animation-delay: 0s;
+    }
+    .tac-node.red { 
+      background: #ef4444; 
+      box-shadow: 0 0 20px 10px rgba(239, 68, 68, 0.3), 0 0 0 6px rgba(255,255,255,0.1); 
+      animation-delay: -2.5s;
+    }
+
+    @keyframes floatNode {
+      0% { transform: translateY(0px) scale(1); }
+      100% { transform: translateY(-40px) scale(1.2); }
+    }
+
+    .n1 { top: 20%; left: 15%; }
+    .n2 { top: 65%; left: 25%; }
+    .n3 { top: 30%; left: 80%; }
+    .n4 { top: 75%; left: 70%; }
+
+    /* Main Landing Content */
+    .landing-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 0 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeUpIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes fadeUpIn {
+      from { opacity: 0; transform: translateY(40px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .system-badge {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #6ee7b7;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+    }
+
+    .landing-content h1 {
+      font-size: clamp(60px, 9vw, 130px);
+      font-weight: 900;
+      margin: 0 0 10px 0;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ccfdea;
+      /* Stunning soft layered glow */
+      text-shadow: 
+        0 10px 30px rgba(1, 32, 17, 0.933), 
+        0 0 40px rgba(16, 185, 129, 0.3),
+        0 0 80px rgba(16, 185, 129, 0.2);
+      line-height: 1.05;
+    }
+
+    .landing-content p {
+      font-size: clamp(16px, 2vw, 22px);
+      color: #f8fafa;
+      margin: 0 0 60px 0;
+      font-weight: 300;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    }
+
+    /* Premium Glass Pill Button */
+    .enter-btn {
+      position: relative;
+      font-family: 'Inter', sans-serif;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #fff;
+      padding: 20px 56px;
+      font-size: 16px;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255,255,255,0.05);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      overflow: hidden;
+    }
+
+    /* Sweep highlight effect */
+    .enter-btn::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -150%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transform: skewX(-20deg);
+      transition: all 0.6s ease;
+    }
+
+    .enter-btn:hover::after {
+      left: 150%;
+    }
+
+    .enter-btn:hover {
+      background: #ffffff;
+      color: #022c22;
+      transform: scale(1.05) translateY(-2px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(16, 185, 129, 0.4);
+      border-color: #ffffff;
+    }
+
+    /* --- LAYOUT STRUCTURE --- */
+    #app-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 1500px;
+      padding: 20px;
+      box-sizing: border-box;
+      gap: 24px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.8s ease 0.2s; /* Fades in smoothly */
+    }
+
+    /* 1. Header Bar */
+    header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      box-sizing: border-box;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand span {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    select {
+      font-family: 'Inter', sans-serif;
+      padding: 12px 16px;
+      font-size: 14px;
+      border-radius: 8px;
+      border: 1px solid var(--glass-border);
+      background: rgba(0, 0, 0, 0.4);
+      color: var(--text-main);
+      cursor: pointer;
+      font-weight: 600;
+      width: 240px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    select:focus {
+      border-color: #fff;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.2);
+    }
+
+    .action-btn {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+      color: #0f172a;
+      padding: 12px 24px;
+      font-size: 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.2s ease;
+    }
+
+    .action-btn:hover {
+      background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* 2. Middle Section: The Playground & Lists */
+    .playground-container {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      width: 100%;
+      gap: 24px;
+    }
+
+    .player-list {
+      width: 240px;
+      height: 560px;
+      padding: 16px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+
+    .player-list table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 6px;
+    }
+
+    .player-list th {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      padding-bottom: 12px;
+      font-weight: 800;
+      text-align: left;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .player-list td {
+      padding: 12px 16px;
+      text-align: left;
+      background: rgba(0,0,0,0.25);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+      border: 1px solid transparent;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .player-list td:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateX(2px);
+    }
+
+    /* List Highlights with Gradients */
+    #home-list td.selected-player {
+      background: linear-gradient(90deg, rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0.05) 100%);
+      border-left: 4px solid var(--team-home);
+      color: #93c5fd;
+    }
+
+    #away-list td.selected-player {
+      background: linear-gradient(90deg, rgba(239, 68, 68, 0.3) 0%, rgba(239, 68, 68, 0.05) 100%);
+      border-left: 4px solid var(--team-away);
+      color: #fca5a5;
+    }
+
+    /* The Central Pitch */
+    .pitch-wrapper {
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #field {
+      position: relative;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--pitch-dark) 0px, var(--pitch-dark) 50px, 
+        var(--pitch-light) 50px, var(--pitch-light) 100px
+      );
+      width: 900px;
+      height: 520px;
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      border-radius: 8px; 
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 0 50px rgba(0,0,0,0.3);
+      margin: 0;
+      overflow: hidden;
+    }
+
+    /* Adding a subtle radial gradient overlay to the pitch to simulate lighting */
+    #field::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.4) 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Pitch Markings */
+    .pitch-line {
+      position: absolute;
+      border: 2px solid rgba(255,255,255,0.6);
+      background: transparent;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    #field-center-line {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 100%;
+      background: rgba(255,255,255,0.6);
+      z-index: 1;
+    }
+
+    #field-center-circle {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 140px;
+      height: 140px;
+      border: 2px solid rgba(255,255,255,0.6);
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    #center-spot {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .penalty-box { width: 140px; height: 300px; top: 110px; }
+    #penalty-left { left: 0; border-left: none; }
+    #penalty-right { right: 0; border-right: none; }
+
+    .goal-area { width: 45px; height: 140px; top: 190px; }
+    #goal-area-left { left: 0; border-left: none; }
+    #goal-area-right { right: 0; border-right: none; }
+
+    .penalty-spot {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #fff;
+      border-radius: 50%;
+      z-index: 2;
+    }
+    #penalty-spot-left { left: 100px; top: 257px; }
+    #penalty-spot-right { right: 100px; top: 257px; }
+
+    .goal-post {
+      position: absolute;
+      width: 12px;
+      height: 100px;
+      background: linear-gradient(to bottom, #e2e8f0, #94a3b8);
+      border: 1px solid #64748b;
+      top: 210px;
+      border-radius: 2px;
+      z-index: 2;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+    #goal-left { left: -6px; border-left: none; }
+    #goal-right { right: -6px; border-right: none; }
+
+    .corner-arc {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border: 2px solid rgba(255,255,255,0.6);
+      border-radius: 50%;
+      z-index: 2;
+    }
+    #corner-tl { left: -15px; top: -15px; border-right: none; border-bottom: none; }
+    #corner-tr { right: -15px; top: -15px; border-left: none; border-bottom: none; }
+    #corner-bl { left: -15px; bottom: -15px; border-right: none; border-top: none; }
+    #corner-br { right: -15px; bottom: -15px; border-left: none; border-top: none; }
+
+    /* Player Tokens (Premium Gradient Chips) */
+    .player {
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      color: white;
+      font-size: 14px; 
+      text-align: center;
+      line-height: 36px;
+      cursor: grab;
+      font-weight: 800;
+      user-select: none;
+      transition: transform 0.1s ease;
+      z-index: 10;
+      border: 2px solid rgba(255,255,255,0.9);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6), inset 0 -4px 6px rgba(0,0,0,0.2);
+    }
+    
+    .player:hover {
+      transform: scale(1.15);
+      z-index: 20;
+    }
+
+    .player.home-team { background: var(--team-home-grad); }
+    .player.away-team { background: var(--team-away-grad); }
+
+    .player.dragging {
+      cursor: grabbing;
+      transform: scale(1.2) !important;
+      z-index: 100;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.7), inset 0 -4px 6px rgba(0,0,0,0.2);
+    }
+
+    .player.home-team.selected {
+      box-shadow: 0 0 0 3px #fff, 0 0 0 7px var(--team-home), inset 0 -4px 6px rgba(0,0,0,0.2);
+      z-index: 50;
+    }
+
+    .player.away-team.selected {
+      box-shadow: 0 0 0 3px #fff, 0 0 0 7px var(--team-away), inset 0 -4px 6px rgba(0,0,0,0.2);
+      z-index: 50;
+    }
+
+    /* 3. Bottom Output Notification */
+    footer {
+      width: 100%;
+      padding: 30px 24px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-main);
+      box-sizing: border-box;
+      letter-spacing: 0.5px;
+    }
+
+    footer span.highlight {
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    /* Canvas & Ball */
+    #line-canvas {
+      position: absolute;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .ball {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle at 30% 30%, #ffffff, #e2e8f0 60%, #94a3b8);
+      border-radius: 50%;
+      z-index: 20;
+      pointer-events: none;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.6);
+      border: 1px solid #cbd5e1;
+    }
+    /* =====================================================================
+       RESPONSIVE DESIGN (MOBILE & TABLET SUPPORT)
+       ===================================================================== */
+    
+    @media screen and (max-width: 1100px) {
+      /* 1. Stack the layout vertically instead of side-by-side */
+      .playground-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* 2. Adjust the player lists to be horizontal boxes */
+      .player-list {
+        width: 100%;
+        max-width: 932px; /* Matches the pitch width + padding */
+        height: auto;
+        max-height: 250px; /* Prevents long scrolling */
+        overflow-y: auto;
+      }
+
+      /* 3. Safely contain the 900px pitch so it doesn't break the mobile screen */
+      .pitch-wrapper {
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: auto; /* Allows user to swipe left/right on the pitch */
+        padding: 16px 0;
+        border-radius: 0;
+      }
+
+      /* 4. Center the field inside the scroll wrapper */
+      #field {
+        margin: 0 auto;
+        /* Optional: Add a subtle hint that it's scrollable */
+        box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 0 50px rgba(0,0,0,0.3), 20px 0 30px -10px rgba(16, 185, 129, 0.2) inset;
+      }
+
+      /* 5. Stack the header controls */
+      header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+
+      .controls {
+        width: 100%;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .controls select, 
+      .controls .action-btn {
+        width: 100%;
+        max-width: 400px;
+      }
+    }
+
+    /* Small Phones Adjustment */
+    @media screen and (max-width: 480px) {
+      .landing-content h1 {
+        font-size: clamp(40px, 12vw, 60px); /* Prevent title from breaking */
+      }
+      
+      .enter-btn {
+        padding: 15px 40px;
+        font-size: 14px;
+      }
+      
+      footer {
+        padding: 20px 10px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="landing-page">
+    
+    <div class="landing-bg-graphic"></div>
+    <div class="landing-nodes">
+      <div class="l-line ll-1"></div>
+      <div class="l-line ll-2"></div>
+      <div class="l-line ll-3"></div>
+      <div class="l-node blue ln-1"></div>
+      <div class="l-node red ln-2"></div>
+      <div class="l-node blue ln-3"></div>
+      <div class="l-node red ln-4"></div>
+      <div class="l-node ln-5"></div>
+    </div>
+    
+    <div class="landing-content">
+      <h1>Tactical Command</h1>
+      <p>Professional Match Operations & Analytics</p>
+      <button class="enter-btn" id="enter-btn">Access Workspace</button>
+    </div>
+  </div>
+
+  <div id="app-wrapper">
+    
+    <header class="glass-panel">
+      <div class="brand">
+        <h1>Tactical Command</h1>
+        <span>Professional Match Operations</span>
+      </div>
+      <div class="controls">
+        <select id="player-select">
+          <option value="" disabled selected>Select a unit to analyze...</option>
+        </select>
+        <button class="action-btn" id="find-path-btn">Analyze Route</button>
+      </div>
+    </header>
+
+    <div class="playground-container">
+      
+      <aside id="home-list" class="glass-panel player-list"></aside>
+      
+      <main class="glass-panel pitch-wrapper">
+        <div id="field">
+          <canvas id="line-canvas" width="900" height="520"></canvas>
+          <div id="field-center-line"></div>
+          <div id="field-center-circle"></div>
+          <div id="goal-left" class="goal-post"></div>
+          <div id="goal-right" class="goal-post"></div>
+          <div id="center-spot"></div>
+          
+          <div id="penalty-left" class="pitch-line penalty-box"></div>
+          <div id="penalty-right" class="pitch-line penalty-box"></div>
+          <div id="goal-area-left" class="pitch-line goal-area"></div>
+          <div id="goal-area-right" class="pitch-line goal-area"></div>
+          <div id="penalty-spot-left" class="penalty-spot"></div>
+          <div id="penalty-spot-right" class="penalty-spot"></div>
+          
+          <div id="corner-tl" class="pitch-line corner-arc"></div>
+          <div id="corner-tr" class="pitch-line corner-arc"></div>
+          <div id="corner-bl" class="pitch-line corner-arc"></div>
+          <div id="corner-br" class="pitch-line corner-arc"></div>
+          
+          <div id="animated-ball" class="ball" style="display:none;"></div>
+        </div>
+      </main>
+
+      <aside id="away-list" class="glass-panel player-list"></aside>
+
+    </div>
+
+    <footer id="output" class="glass-panel">
+      System Ready. Select a player token to begin tactical route analysis.
+    </footer>
+
+  </div>
+
+  <script>
+    // --- Landing Page Transition ---
+    // --- Landing Page Transition ---
+    document.getElementById('enter-btn').addEventListener('click', () => {
+      const landingPage = document.getElementById('landing-page');
+      const appWrapper = document.getElementById('app-wrapper');
+      
+      landingPage.style.opacity = '0';
+      landingPage.style.visibility = 'hidden';
+      
+      appWrapper.style.opacity = '1';
+      appWrapper.style.visibility = 'visible';
+    });
+
+    const BALL_SIZE = 20; 
+
+    // Standard 4-3-3 Formations
+    const initialPositions = {
+      home: [
+        { num: 1, x: 40, y: 260, pos: 'GK' },   
+        { num: 2, x: 160, y: 90, pos: 'RB' },   
+        { num: 3, x: 130, y: 190, pos: 'CB' },  
+        { num: 4, x: 130, y: 330, pos: 'CB' },  
+        { num: 5, x: 160, y: 430, pos: 'LB' },  
+        { num: 6, x: 260, y: 260, pos: 'CDM' },  
+        { num: 8, x: 310, y: 140, pos: 'CM' },  
+        { num: 10, x: 310, y: 380, pos: 'CM' }, 
+        { num: 7, x: 400, y: 90, pos: 'RW' },   
+        { num: 9, x: 410, y: 260, pos: 'ST' },  
+        { num: 11, x: 400, y: 430, pos: 'LW' }  
+      ],
+      away: [
+        { num: 1, x: 860, y: 260, pos: 'GK' },   
+        { num: 2, x: 740, y: 430, pos: 'RB' },   
+        { num: 3, x: 770, y: 330, pos: 'CB' },   
+        { num: 4, x: 770, y: 190, pos: 'CB' },   
+        { num: 5, x: 740, y: 90, pos: 'LB' },    
+        { num: 6, x: 640, y: 260, pos: 'CDM' },   
+        { num: 8, x: 590, y: 380, pos: 'CM' },   
+        { num: 10, x: 590, y: 140, pos: 'CM' },  
+        { num: 7, x: 500, y: 430, pos: 'RW' },   
+        { num: 9, x: 490, y: 260, pos: 'ST' },   
+        { num: 11, x: 500, y: 90, pos: 'LW' }    
+      ]
+    };
+
+    function setupPlayers(positionsData, teamClass, prefix, teamName) {
+      return positionsData.map(pos => {
+        return { 
+          id: `${prefix}_${pos.num}`, 
+          number: pos.num,            
+          displayName: `Player ${pos.num} (${pos.pos})`,
+          teamName: teamName,
+          x: pos.x, 
+          y: pos.y, 
+          teamClass 
+        };
+      });
+    }
+
+    const homePlayers = setupPlayers(initialPositions.home, "home-team", "home", "Home Squad");
+    const awayPlayers = setupPlayers(initialPositions.away, "away-team", "away", "Away Squad");
+    let allPlayers = [...homePlayers, ...awayPlayers];
+
+    const goalLeft = { id: "Goal_Left", displayName: "Home Goal", x: 10, y: 260 };   
+    const goalRight = { id: "Goal_Right", displayName: "Away Goal", x: 890, y: 260 }; 
+
+    const field = document.getElementById("field");
+    const lineCanvas = document.getElementById("line-canvas");
+    const ctx = lineCanvas.getContext("2d");
+
+    const playerSelect = document.getElementById("player-select");
+    const findPathBtn = document.getElementById("find-path-btn");
+    const outputDiv = document.getElementById("output");
+
+    let selectedPlayerId = null;
+    let lastPath = null;
+
+    function renderPlayers(players) {
+      document.querySelectorAll(".player").forEach(el => el.remove());
+      players.forEach(player => {
+        const div = document.createElement("div");
+        div.classList.add("player", player.teamClass);
+        div.style.left = (player.x - 18) + "px"; 
+        div.style.top = (player.y - 18) + "px";
+        
+        div.textContent = player.number;
+        div.title = `${player.teamName} - ${player.displayName}`;
+        div.dataset.id = player.id; 
+        field.appendChild(div);
+      });
+      makePlayersDraggable();
+    }
+
+    function renderPlayerLists() {
+      const homeListDiv = document.getElementById("home-list");
+      const awayListDiv = document.getElementById("away-list");
+
+      homeListDiv.innerHTML = `
+        <table>
+          <tr><th>Home Team Roster</th></tr>
+          ${homePlayers.map(p => `<tr><td data-listid="${p.id}" onclick="selectPlayerById('${p.id}')">${p.displayName}</td></tr>`).join("")}
+        </table>
+      `;
+
+      awayListDiv.innerHTML = `
+        <table>
+          <tr><th>Away Team Roster</th></tr>
+          ${awayPlayers.map(p => `<tr><td data-listid="${p.id}" onclick="selectPlayerById('${p.id}')">${p.displayName}</td></tr>`).join("")}
+        </table>
+      `;
+    }
+
+    function highlightSelectedPlayerInTable(id) {
+      document.querySelectorAll('.player-list td').forEach(td => {
+        if (td.dataset.listid === id) {
+          td.classList.add('selected-player');
+        } else {
+          td.classList.remove('selected-player');
+        }
+      });
+    }
+
+    function populateSelect(players) {
+      playerSelect.innerHTML = '<option value="" disabled selected>Select a unit to analyze...</option>';
+      players.forEach(p => {
+        const option = document.createElement("option");
+        option.value = p.id;
+        option.textContent = `${p.teamName}: ${p.displayName}`;
+        playerSelect.appendChild(option);
+      });
+    }
+
+    let draggingPlayerDiv = null;
+    let dragOffsetX = 0;
+    let dragOffsetY = 0;
+
+    function selectPlayerById(id) {
+      document.querySelectorAll(".player.selected").forEach(el => el.classList.remove("selected"));
+      
+      const playerDiv = document.querySelector(`.player[data-id="${id}"]`);
+      if (playerDiv) playerDiv.classList.add("selected");
+      
+      selectedPlayerId = id;
+      playerSelect.value = selectedPlayerId;
+      
+      const p = allPlayers.find(x => x.id === id);
+      
+      const color = p.teamClass === 'home-team' ? '#93c5fd' : '#fca5a5';
+      outputDiv.innerHTML = `Unit Selected: <span class="highlight" style="color:${color};">${p.teamName} - ${p.displayName}</span>. Awaiting tactical route execution.`;
+      
+      lastPath = null;
+      clearCanvas();
+      document.getElementById("animated-ball").style.display = "none";
+      if (animationId) cancelAnimationFrame(animationId);
+      
+      highlightSelectedPlayerInTable(selectedPlayerId);
+    }
+
+    function makePlayersDraggable() {
+      document.querySelectorAll(".player").forEach(div => {
+        div.onmousedown = e => {
+          draggingPlayerDiv = div;
+          draggingPlayerDiv.classList.add("dragging");
+          const rect = draggingPlayerDiv.getBoundingClientRect();
+          dragOffsetX = e.clientX - rect.left;
+          dragOffsetY = e.clientY - rect.top;
+          e.preventDefault();
+        };
+
+        div.onclick = e => {
+          e.stopPropagation();
+          selectPlayerById(div.dataset.id);
+        };
+      });
+    }
+
+    document.addEventListener("mousemove", e => {
+      if (!draggingPlayerDiv) return;
+
+      const fieldRect = field.getBoundingClientRect();
+      let newX = e.clientX - fieldRect.left - dragOffsetX + 18; 
+      let newY = e.clientY - fieldRect.top - dragOffsetY + 18;
+
+      newX = Math.min(Math.max(newX, 18), field.clientWidth - 18);
+      newY = Math.min(Math.max(newY, 18), field.clientHeight - 18);
+
+      draggingPlayerDiv.style.left = (newX - 18) + "px";
+      draggingPlayerDiv.style.top = (newY - 18) + "px";
+
+      const id = draggingPlayerDiv.dataset.id;
+      const player = allPlayers.find(p => p.id === id);
+      if (player) {
+        player.x = newX;
+        player.y = newY;
+      }
+
+      if (lastPath) {
+        const activePlayer = allPlayers.find(p => p.id === selectedPlayerId);
+        if (draggingPlayerDiv.classList.contains("selected") || !draggingPlayerDiv.classList.contains(activePlayer?.teamClass)) {
+             findPathLogic(); 
+        }
+      }
+    });
+
+    document.addEventListener("mouseup", e => {
+      if (draggingPlayerDiv) {
+        draggingPlayerDiv.classList.remove("dragging");
+        draggingPlayerDiv = null;
+      }
+    });
+
+    function clearCanvas() {
+      ctx.clearRect(0, 0, lineCanvas.width, lineCanvas.height);
+    }
+
+    function drawLine(x1, y1, x2, y2, color, width = 3) {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = width;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.setLineDash([8, 6]); 
+      
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+      
+      ctx.setLineDash([]);
+    }
+
+    function distance(a, b) {
+      return Math.hypot(a.x - b.x, a.y - b.y);
+    }
+
+    function pointToSegmentDistance(p, v, w) {
+      const l2 = (w.x - v.x) ** 2 + (w.y - v.y) ** 2;
+      if (l2 === 0) return distance(p, v);
+      let t = ((p.x - v.x) * (w.x - v.x) + (p.y - v.y) * (w.y - v.y)) / l2;
+      t = Math.max(0, Math.min(1, t)); 
+      const projection = { x: v.x + t * (w.x - v.x), y: v.y + t * (w.y - v.y) };
+      return distance(p, projection);
+    }
+
+    function buildGraph(players, goalNode, teamClass) {
+      const teamPlayers = players.filter(p => p.teamClass === teamClass);
+      const opponentPlayers = players.filter(p => p.teamClass !== teamClass);
+      const INTERCEPT_RADIUS = 30; 
+
+      const graph = {};
+      teamPlayers.forEach(p => { graph[p.id] = []; });
+      graph[goalNode.id] = [];
+
+      for (let i = 0; i < teamPlayers.length; i++) {
+        for (let j = 0; j < teamPlayers.length; j++) {
+          if (i !== j) {
+            const dist = distance(teamPlayers[i], teamPlayers[j]);
+            if (dist < 500) { 
+              let isBlocked = false;
+              for (const opp of opponentPlayers) {
+                if (pointToSegmentDistance(opp, teamPlayers[i], teamPlayers[j]) < INTERCEPT_RADIUS) {
+                  isBlocked = true;
+                  break; 
+                }
+              }
+              if (!isBlocked) {
+                graph[teamPlayers[i].id].push({ to: teamPlayers[j].id, weight: dist });
+              }
+            }
+          }
+        }
+      }
+
+      teamPlayers.forEach(p => {
+        const distToGoal = distance(p, goalNode);
+        if (distToGoal < 500) {
+          let isBlocked = false;
+          for (const opp of opponentPlayers) {
+            if (pointToSegmentDistance(opp, p, goalNode) < INTERCEPT_RADIUS) {
+              isBlocked = true;
+              break;
+            }
+          }
+          if (!isBlocked) {
+            graph[p.id].push({ to: goalNode.id, weight: distToGoal });
+          }
+        }
+      });
+      return graph;
+    }
+
+    function dijkstra(graph, startId, endId) {
+      const distances = {};
+      const prev = {};
+      const nodes = new Set(Object.keys(graph));
+      for (const nodeId in graph) {
+        distances[nodeId] = Infinity;
+        prev[nodeId] = null;
+      }
+      distances[startId] = 0;
+      while (nodes.size > 0) {
+        let currentId = null;
+        let minDist = Infinity;
+        for (const nodeId of nodes) {
+          if (distances[nodeId] < minDist) {
+            minDist = distances[nodeId];
+            currentId = nodeId;
+          }
+        }
+        if (currentId === endId || minDist === Infinity) break;
+        nodes.delete(currentId);
+        for (const neighbor of graph[currentId]) {
+          const alt = distances[currentId] + neighbor.weight;
+          if (alt < distances[neighbor.to]) {
+            distances[neighbor.to] = alt;
+            prev[neighbor.to] = currentId;
+          }
+        }
+      }
+      const path = [];
+      let u = endId;
+      while (u) {
+        path.unshift(u);
+        u = prev[u];
+        if (u === startId) {
+          path.unshift(startId);
+          break;
+        }
+      }
+      if (path[0] !== startId) return null;
+      return path;
+    }
+
+    function drawPath(path, teamClass) {
+      if (!path || path.length < 2) return;
+      
+      const lineColor = teamClass === 'home-team' ? '#93c5fd' : '#fca5a5'; 
+      
+      for (let i = 0; i < path.length - 1; i++) {
+        const fromId = path[i];
+        const toId = path[i + 1];
+        let fromNode, toNode;
+        
+        if (fromId === goalLeft.id) fromNode = goalLeft;
+        else if (fromId === goalRight.id) fromNode = goalRight;
+        else fromNode = allPlayers.find(p => p.id === fromId);
+        
+        if (toId === goalLeft.id) toNode = goalLeft;
+        else if (toId === goalRight.id) toNode = goalRight;
+        else toNode = allPlayers.find(p => p.id === toId);
+        
+        if (fromNode && toNode) {
+          drawLine(fromNode.x, fromNode.y, toNode.x, toNode.y, lineColor);
+        }
+      }
+    }
+
+    let animationId = null; 
+    function animateBallAlongPath(path, speed = 5) {
+      if (animationId) cancelAnimationFrame(animationId);
+      
+      const ball = document.getElementById("animated-ball");
+      if (!path || path.length < 2) {
+         ball.style.display = "none";
+         return;
+      }
+      
+      const positions = path.map(id => {
+        if (id === goalLeft.id) return { x: goalLeft.x, y: goalLeft.y };
+        if (id === goalRight.id) return { x: goalRight.x, y: goalRight.y };
+        const player = allPlayers.find(p => p.id === id);
+        return player ? { x: player.x, y: player.y } : null;
+      }).filter(Boolean);
+      
+      ball.style.display = "flex";
+      ball.style.left = (positions[0].x - BALL_SIZE / 2) + "px";
+      ball.style.top = (positions[0].y - BALL_SIZE / 2) + "px";
+      
+      let step = 0;
+      function moveToNext() {
+        if (step >= positions.length - 1) {
+          ball.style.left = (positions[positions.length - 1].x - BALL_SIZE / 2) + "px";
+          ball.style.top = (positions[positions.length - 1].y - BALL_SIZE / 2) + "px";
+          return;
+        }
+        const from = positions[step];
+        const to = positions[step + 1];
+        let progress = 0;
+        const frames = Math.max(8, Math.floor(distance(from, to) / speed));
+        
+        function animateFrame() {
+          progress++;
+          const t = progress / frames;
+          const x = from.x + (to.x - from.x) * t;
+          const y = from.y + (to.y - from.y) * t;
+          ball.style.left = (x - BALL_SIZE / 2) + "px";
+          ball.style.top = (y - BALL_SIZE / 2) + "px";
+          
+          if (progress < frames) {
+            animationId = requestAnimationFrame(animateFrame);
+          } else {
+            step++;
+            moveToNext();
+          }
+        }
+        animateFrame();
+      }
+      moveToNext();
+    }
+
+    function init() {
+      renderPlayers(allPlayers);
+      populateSelect(allPlayers);
+      renderPlayerLists();
+    }
+
+    playerSelect.onchange = () => {
+      selectPlayerById(playerSelect.value);
+    };
+
+    function findPathLogic() {
+       if (!selectedPlayerId) {
+        outputDiv.innerHTML = `<span class="highlight" style="color: #fca5a5;">Notice:</span> Please select a unit from the roster or pitch first.`;
+        return;
+      }
+      const startPlayer = allPlayers.find(p => p.id === selectedPlayerId);
+      if (!startPlayer) return;
+      
+      const opponentGoal = startPlayer.teamClass === "home-team" ? goalRight : goalLeft;
+      const graph = buildGraph(allPlayers, opponentGoal, startPlayer.teamClass);
+      const path = dijkstra(graph, startPlayer.id, opponentGoal.id);
+      
+      if (!path) {
+        outputDiv.innerHTML = `<span class="highlight" style="color: #fca5a5;">Analysis Failed:</span> Current defensive structure blocks all viable passing lanes.`;
+        clearCanvas();
+        lastPath = null;
+        document.getElementById("animated-ball").style.display = "none";
+        if (animationId) cancelAnimationFrame(animationId);
+        return;
+      }
+      
+      lastPath = path;
+      
+      const pathText = path.map(id => {
+         if (id === goalLeft.id) return "Home Goal";
+         if (id === goalRight.id) return "Away Goal";
+         return allPlayers.find(p => p.id === id).displayName;
+      }).join(" ➔ ");
+      
+      const color = startPlayer.teamClass === 'home-team' ? '#93c5fd' : '#fca5a5';
+      outputDiv.innerHTML = `Calculated Route: <span class="highlight" style="color: ${color};">${pathText}</span>`;
+      
+      clearCanvas();
+      drawPath(path, startPlayer.teamClass);
+      animateBallAlongPath(path);
+    }
+
+    findPathBtn.onclick = findPathLogic;
+
+    field.onclick = (e) => {
+      if(e.target.classList.contains('player')) return;
+      
+      selectedPlayerId = null;
+      document.querySelectorAll(".player.selected").forEach(el => el.classList.remove("selected"));
+      playerSelect.value = "";
+      
+      outputDiv.innerHTML = "System Ready. Select a player token to begin tactical route analysis.";
+      
+      lastPath = null;
+      clearCanvas();
+      document.getElementById("animated-ball").style.display = "none";
+      if (animationId) cancelAnimationFrame(animationId);
+      highlightSelectedPlayerInTable("");
+    };
+
+    init();
+  </script>
+</body>
+</html>
